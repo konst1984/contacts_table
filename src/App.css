@@ -1,0 +1,49 @@
+th,tr{
+  width: 50px;
+  cursor: pointer;
+}
+
+svg{
+  margin-left: 15px;
+  margin-bottom: -2px;
+}
+
+.details{
+  background-color: #c0c0c0;
+  padding: 5px 5px ;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.details > p {
+  font-weight: bold;
+}
+
+.input-search{
+  margin: 10px 0;
+}
+
+.needs-validation{
+  padding: 10px;
+  margin: 10px 0;
+  background-color: darkgrey;
+  border-radius: 10px;
+}
+.needs-validation > .btn{
+  max-width: 120px;
+}
+
+.form-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+
+#validationTooltipUsername{
+  border-radius: 0.375rem
+}
+
+.col-md-3.mb-3{
+  max-width: 100px;
+  min-width: max-content;
+}
