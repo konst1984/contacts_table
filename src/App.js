@@ -5,7 +5,7 @@ import Switcher from "./components/Switcher/Switcher";
 import TableBody from "./components/TableBody/TableBody";
 import useStateApp from "./hooks/useStateApp";
 import Paginator from "./components/Paginator/Paginator";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { generatorArr } from "./utils/generatorArr";
 
 import AppContext from "./components/context/AppContext";
@@ -30,10 +30,10 @@ function App() {
       filteredValue,
       setFilteredValue,
       newContact,
-      setNewContact
+      setNewContact,
     },
   ] = useStateApp();
-  const [{ initialData, isLoading, setInitialData }] = useServerData({
+  const [{ initialData, isLoading, setInitialData, isError }] = useServerData({
     url,
     isButtonClick,
   });
@@ -61,7 +61,7 @@ function App() {
       const totalCountPage = Math.ceil(filterData.length / limitCountPages);
       setTotalRow(totalCountPage);
     }
-  }, [filterData,limitCountPages,initialData,setTotalRow]);
+  }, [filterData, limitCountPages, initialData, setTotalRow]);
 
   const totalRowArr = generatorArr(totalRow);
 
@@ -94,7 +94,7 @@ function App() {
   };
   const previousPage = () => {
     if (currentPage <= 1) return;
-    setCurrentPage(currentPage -1);
+    setCurrentPage(currentPage - 1);
   };
 
   const getCurrentPage = (n) => {
@@ -102,16 +102,14 @@ function App() {
     setDetailItem(null);
   };
 
-
   const onSearchSend = (value) => {
     setFilteredValue(value);
   };
 
   const getFormData = (obj) => {
     setNewContact(obj);
-  }
-  contactData = [newContact, ...contactData]
-
+  };
+  contactData = [newContact, ...contactData];
 
   const contextValue = {
     onSearchSend,
@@ -126,11 +124,15 @@ function App() {
     <div className="container">
       <AppContext.Provider value={contextValue}>
         <Switcher buttonHandler={buttonHandler} />
-        {isButtonClick ? (
-         <>
-           <Form getFormData={getFormData}/>
-           <TableBody isLoading={isLoading} detailItem={detailItem} />
-         </>
+        {isError ? (
+          <div className="alert alert-danger" role="alert">
+            Error getting data
+          </div>
+        ) : isButtonClick ? (
+          <>
+            <Form getFormData={getFormData} />
+            <TableBody isLoading={isLoading} detailItem={detailItem} />
+          </>
         ) : null}
         {totalRow > 1 ? (
           <Paginator
